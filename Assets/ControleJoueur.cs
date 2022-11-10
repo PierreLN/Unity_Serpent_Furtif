@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ControleJoueur : MonoBehaviour
 {
@@ -10,10 +12,17 @@ public class ControleJoueur : MonoBehaviour
     public Vector2 derniereDirection = Vector2.right;
     public Transform trPierre;
     private Rigidbody2D rig;
+
+    private SpriteRenderer rendu;
+    private bool once = false;
+    private Vector2 sourceBruit; 
+
+    private UnityAction<object> bruit;
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
+        rendu = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -37,5 +46,58 @@ public class ControleJoueur : MonoBehaviour
     private void FixedUpdate()
     {
         rig.velocity = direction * vitesse;
+    }
+
+
+    private void Awake()
+    {
+        bruit = new UnityAction<object>(reactionBruit);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.StartListening("Ecoute", bruit);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.StopListening("Ecoute", bruit);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie") ||
+            collision.collider.gameObject.layer == LayerMask.NameToLayer("Mur"))
+        {
+            EventManager.TriggerEvent("Ecoute", Color.red);
+        }
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie"))
+        {
+            SceneManager.LoadScene("Furtif");
+        }
+    }
+
+    void reactionBruit(object data)
+    {
+        sourceBruit = transform.position;
+        Debug.Log(sourceBruit);
+        EventManager.TriggerEvent("Who", sourceBruit);
+
+        StartCoroutine(COuch(data));
+    }
+
+    IEnumerator COuch(object data)
+    {
+        once = false;
+        while (!once)
+        {
+            Color col = (Color)data;
+            rendu.color = col;
+            yield return new WaitForSeconds(0.3f);
+            rendu.color = Color.white;
+            once = true;
+        }
+
     }
 }

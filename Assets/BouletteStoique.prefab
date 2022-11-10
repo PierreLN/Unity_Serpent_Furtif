@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4232163100977670363}
   - component: {fileID: 4197203403304984811}
   - component: {fileID: 5762190925701503475}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BouletteStoique
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,4 +136,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b00ed8df3941c4b968d71be84710b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vitesse: 10

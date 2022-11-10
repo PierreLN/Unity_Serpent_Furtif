@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 4840495417875954475}
   - component: {fileID: 4840495417875954473}
   - component: {fileID: 4840495417875954472}
+  - component: {fileID: 4515959492095258463}
+  - component: {fileID: 9200882065976744862}
   m_Layer: 0
   m_Name: Serpent
   m_TagString: Untagged
@@ -205,6 +207,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e509b240f7e0a48be4d7fe4b64197a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vitesse: 5
+  vitesseLancer: 30
+  direction: {x: 0, y: 0}
+  derniereDirection: {x: 1, y: 0}
+  trPierre: {fileID: 0}
 --- !u!50 &4840495417875954473
 Rigidbody2D:
   serializedVersion: 4
@@ -252,3 +259,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.84078884, y: 1.2489402}
   m_EdgeRadius: 0
+--- !u!114 &4515959492095258463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4840495417875954487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a356b63f96d40240a379763a7b57a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9200882065976744862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4840495417875954487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04ddbee47faf6d4ea46b15e0d4c0785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
