@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 488944289219753356}
   - component: {fileID: 488944289219753359}
   - component: {fileID: 488944289219753358}
-  m_Layer: 0
+  - component: {fileID: -8882481480126390337}
+  - component: {fileID: -8956081204608784988}
+  m_Layer: 7
   m_Name: Pierre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,3 +125,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8882481480126390337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488944289219753456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f5510eb583f3c44ea33e67c9788c5d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8956081204608784988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488944289219753456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a356b63f96d40240a379763a7b57a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

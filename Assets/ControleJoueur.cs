@@ -66,22 +66,25 @@ public class ControleJoueur : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie") ||
-            collision.collider.gameObject.layer == LayerMask.NameToLayer("Mur"))
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Mur"))
         {
             EventManager.TriggerEvent("Ecoute", Color.red);
         }
 
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie"))
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie") ||
+            collision.collider.gameObject.layer == LayerMask.NameToLayer("bouletteEnemie"))
         {
             SceneManager.LoadScene("Furtif");
+        }
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ami"))
+        {
+            EventManager.TriggerEvent("Fini", "fin");
         }
     }
 
     void reactionBruit(object data)
     {
         sourceBruit = transform.position;
-        Debug.Log(sourceBruit);
         EventManager.TriggerEvent("Who", sourceBruit);
 
         StartCoroutine(COuch(data));
