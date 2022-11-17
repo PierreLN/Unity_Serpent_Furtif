@@ -15,7 +15,11 @@ public class ControleJoueur : MonoBehaviour
 
     private SpriteRenderer rendu;
     private bool once = false;
-    private Vector2 sourceBruit; 
+    private Vector2 sourceBruit;
+
+    public int nbBombe = 3;
+    public GameObject menu;
+    private bool pauseGame = false;
 
     private UnityAction<object> bruit;
     // Start is called before the first frame update
@@ -23,24 +27,63 @@ public class ControleJoueur : MonoBehaviour
     {
         rig = GetComponent<Rigidbody2D>();
         rendu = GetComponent<SpriteRenderer>();
+        menu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        direction.x = Input.GetAxisRaw("Horizontal");
-        direction.y = Input.GetAxisRaw("Vertical");
-        if(direction.sqrMagnitude > 0.0001f)
+    {   
+        if (!pauseGame)
         {
-            derniereDirection = direction;
-            direction.Normalize();
-        }
+            direction.x = Input.GetAxisRaw("Horizontal");
+            direction.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            Transform pi = Instantiate(trPierre,transform.position,Quaternion.identity);
-            pi.GetComponent<Rigidbody2D>().AddForce(derniereDirection * vitesseLancer, ForceMode2D.Impulse);
+            if(direction.sqrMagnitude > 0.0001f)
+            {
+                derniereDirection = direction;
+                direction.Normalize();
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (nbBombe > 0)
+                {
+                    Transform pi = Instantiate(trPierre,transform.position,Quaternion.identity);
+                    pi.GetComponent<Rigidbody2D>().AddForce(derniereDirection * vitesseLancer, ForceMode2D.Impulse);
+                    nbBombe--;
+                    EventManager.TriggerEvent("subtractBombe", nbBombe);
+                }
+            }
+            Time.timeScale = 1.0f;
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                pauseGame = true;
+                menu.SetActive(true);
+                Time.timeScale = 0.0f;
+            }
         }
+        else
+        {
+
+        }
+    }
+
+    public void continuerJeux()
+    {
+        Time.timeScale = 1.0f;
+        pauseGame = false;
+        menu.SetActive(false);
+    }
+
+    public void ajouter()
+    {
+        nbBombe++;
+    }
+
+    public void soustraire()
+    {
+        nbBombe--;
     }
 
     private void FixedUpdate()
@@ -67,14 +110,14 @@ public class ControleJoueur : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Mur"))
-        {
+        {   
             EventManager.TriggerEvent("Ecoute", Color.red);
         }
 
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Enemie") ||
             collision.collider.gameObject.layer == LayerMask.NameToLayer("bouletteEnemie"))
         {
-            SceneManager.LoadScene("Furtif");
+            SceneManager.LoadScene("Intro");
         }
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ami"))
         {

@@ -31,7 +31,7 @@ public class Garde : MonoBehaviour
     private void OnDisable()
     {
         EventManager.StopListening("Who", cible);
-        EventManager.StartListening("Boom", explosion);
+        EventManager.StopListening("Boom", explosion);
     }
 
 
